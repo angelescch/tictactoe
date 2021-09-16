@@ -297,3 +297,16 @@ consoleinit(void)
   ioapicenable(IRQ_KBD, 0);
 }
 
+void
+vgainit(void)
+{
+  
+  *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
+  *(int *)P2V(0xB8F92) = 0x3E00 + 'S';
+  *(int *)P2V(0xB8F94) = 0x3E00 + 'O';
+  *(int *)P2V(0xB8F96) = 0x3E00 + '2';
+  *(int *)P2V(0xB8F98) = 0x3E00 + '0';
+  *(int *)P2V(0xB8F9A) = 0x3E00 + '2';
+  *(int *)P2V(0xB8F9C) = 0x3E00 + '1';
+  *(int *)P2V(0xB8F9E) = 0x3E00 + ' ';
+}
