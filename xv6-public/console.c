@@ -297,16 +297,78 @@ consoleinit(void)
   ioapicenable(IRQ_KBD, 0);
 }
 
+#define VGA_AC_INDEX        0x3C0
+#define VGA_AC_WRITE        0x3C0
+#define VGA_AC_READ         0x3C1
+#define VGA_MISC_WRITE      0x3C2
+#define VGA_SEQ_INDEX       0x3C4
+#define VGA_SEQ_DATA        0x3C5
+#define VGA_DAC_READ_INDEX  0x3C7
+#define VGA_DAC_WRITE_INDEX 0x3C8
+#define VGA_DAC_DATA        0x3C9
+#define VGA_MISC_READ       0x3CC
+#define VGA_GC_INDEX        0x3CE
+#define VGA_GC_DATA         0x3CF
+#define VGA_CRTC_INDEX      0x3D4
+#define VGA_CRTC_DATA       0x3D5
+#define VGA_INSTAT_READ     0x3DA
+#define VGA_NUM_SEQ_REGS    5
+#define VGA_NUM_CRTC_REGS   25
+#define VGA_NUM_GC_REGS     9
+#define VGA_NUM_AC_REGS     21
+
+void write_regs(unsigned char *regs)
+{
+  unsigned i;
+
+/* write SEQUENCER regs */
+  for(i = 0; i < VGA_NUM_SEQ_REGS; i++)
+  {
+    outb(VGA_SEQ_INDEX, i);
+    outb(VGA_SEQ_DATA, *regs);
+    regs++;
+  }
+/* write GRAPHICS CONTROLLER regs */
+  for(i = 0; i < VGA_NUM_GC_REGS; i++)
+  {
+    outb(VGA_GC_INDEX, i);
+    outb(VGA_GC_DATA, *regs);
+    regs++;
+  }
+}
+
+/*
+static void
+chgmode(void)
+{
+  inb(0x3DA);
+  outb(0x3C0, 0x10);
+  outb(0x3C0, 0x13);
+}
+*/
+
+unsigned char g_320x200x256[] =
+{
+/* SEQ */
+  0x03, 0x01, 0x0F, 0x00, 0x0E,
+/* GC */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0F,
+  0xFF,
+};
+
 void
 vgainit(void)
 {
-  
-  *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
-  *(int *)P2V(0xB8F92) = 0x3E00 + 'S';
-  *(int *)P2V(0xB8F94) = 0x3E00 + 'O';
-  *(int *)P2V(0xB8F96) = 0x3E00 + '2';
-  *(int *)P2V(0xB8F98) = 0x3E00 + '0';
-  *(int *)P2V(0xB8F9A) = 0x3E00 + '2';
-  *(int *)P2V(0xB8F9C) = 0x3E00 + '1';
-  *(int *)P2V(0xB8F9E) = 0x3E00 + ' ';
+  write_regs(g_320x200x256);
+  for(int i = 0xA0000; i < 0xBFFFF; i++){
+    *(char *)P2V(i) = i % 0xf;
+  }
+  // *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
+  // *(int *)P2V(0xB8F92) = 0x3E00 + 'S';
+  // *(int *)P2V(0xB8F94) = 0x3E00 + 'O';
+  // *(int *)P2V(0xB8F96) = 0x3E00 + '2';
+  // *(int *)P2V(0xB8F98) = 0x3E00 + '0';
+  // *(int *)P2V(0xB8F9A) = 0x3E00 + '2';
+  // *(int *)P2V(0xB8F9C) = 0x3E00 + '1';
+  // *(int *)P2V(0xB8F9E) = 0x3E00 + ' ';
 }
