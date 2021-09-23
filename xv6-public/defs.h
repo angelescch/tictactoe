@@ -23,6 +23,7 @@ void            consoleintr(int(*)(void));
 void            panic(char*) __attribute__((noreturn));
 
 void            vgainit(void);
+void            modeswitch(int mode);
 
 // exec.c
 int             exec(char*, char**);
