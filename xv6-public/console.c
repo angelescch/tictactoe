@@ -467,7 +467,7 @@ modeswitch(int mode)
     write_regs(state);
     break;
   case 1:
-  read_regs(state);
+    read_regs(state);
     write_regs(g_320x200x256);
     break;
   default:
@@ -494,3 +494,4 @@ vgainit(void)
   // }
   modeswitch(0);
 }
+
