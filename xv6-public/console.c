@@ -488,4 +488,3 @@ vgainit(void)
   // }
   modeswitch(0);
 }
-
