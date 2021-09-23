@@ -23,7 +23,8 @@ void            consoleintr(int(*)(void));
 void            panic(char*) __attribute__((noreturn));
 
 void            vgainit(void);
-void            modeswitch(int mode);
+void            modeswitch(int);
+void            plotpixel(int, int, int);
 
 // exec.c
 int             exec(char*, char**);

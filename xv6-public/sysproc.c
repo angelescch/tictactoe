@@ -94,9 +94,21 @@ int
 sys_modeswitch(void)
 {
   int n;
-  if (argint(0, &n) == -1 || (n != -1 && n != 0)){
+  if (argint(0, &n) == -1 || (n != 1 && n != 0)){
     return -1;
   }
   modeswitch(n);
+  return 0;
+}
+
+int
+sys_plotpixel(void)
+{
+  int x, y, color;
+  if (argint(0, &x) == -1 || argint(1, &y) == -1 || argint(2, &color) == -1)
+    return -1;
+  if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 ||color > 255)
+    return -1;
+  plotpixel(x, y, color);
   return 0;
 }

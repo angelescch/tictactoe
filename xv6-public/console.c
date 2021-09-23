@@ -449,8 +449,6 @@ unsigned char g_80x25_text[] =
   0x0C, 0x00, 0x0F, 0x08, 0x00
 };
 
-unsigned char state[VGA_NUM_REGS];
-
 void
 plotpixel(int x, int y, int color)
 {
@@ -464,14 +462,10 @@ modeswitch(int mode)
   switch (mode)
   {
   case 0:
-    write_regs(state);
+    write_regs(g_80x25_text);
     break;
   case 1:
-    read_regs(state);
     write_regs(g_320x200x256);
-    break;
-  default:
-    panic("invalid mode");
     break;
   }
 }

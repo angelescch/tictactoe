@@ -182,7 +182,9 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_moo\
-
+	_testplot\
+	_testplotcool\
+	
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
 
@@ -254,7 +256,7 @@ EXTRA=\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
-	moo.c
+	moo.c testplot.c testplotcool.c
 
 dist:
 	rm -rf dist
