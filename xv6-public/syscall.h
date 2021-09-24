@@ -22,4 +22,4 @@
 #define SYS_close              21
 #define SYS_modeswitch         22
 #define SYS_plotpixel          23
-#define SYS_sys_plotrectangle  24
+#define SYS_plotrectangle      24
