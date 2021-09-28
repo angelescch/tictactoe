@@ -107,9 +107,24 @@ sys_plotpixel(void)
   int x, y, color;
   if (argint(0, &x) == -1 || argint(1, &y) == -1 || argint(2, &color) == -1)
     return -1;
-  if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 ||color > 63)
+  if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 || color > 255)
     return -1;
   plotpixel(x, y, color);
+  return 0;
+}
+
+int
+sys_plotrectangle(void)
+{
+  int x1, y1, x2, y2, color;
+  if (argint(0, &x1) == -1 || argint(1, &y1) == -1 ||
+      argint(2, &x2) == -1 || argint(3, &y2) == -1 || argint(4, &color) == -1)
+    return -1;
+  if (x1 < 0 || x1 > 319 || y1 < 0 || y1 > 199 ||
+      x2 < 0 || x2 > 319 || y2 < 0 || y2 > 199 ||
+      color < 0 || color > 255 || x1 > x2 || y1 > y2)
+    return -1;
+  plotrectangle(x1, y1, x2, y2, color);
   return 0;
 }
 
@@ -132,5 +147,5 @@ sys_printimage(void)
      }
    }
   printimage(whith, length, x, y, bitmap);
-  return 0;
 }
+

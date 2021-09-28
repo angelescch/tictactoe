@@ -26,6 +26,8 @@ void            vgainit(void);
 void            modeswitch(int);
 void            plotpixel(int, int, int);
 void            printimage(int, int, int, int, char*);
+void            plotrectangle(int, int, int, int, int);
+
 // exec.c
 int             exec(char*, char**);
 

@@ -31,4 +31,6 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(modeswitch)
 SYSCALL(plotpixel)
+SYSCALL(plotrectangle)
 SYSCALL(printimage)
+

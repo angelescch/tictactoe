@@ -483,6 +483,16 @@ modeswitch(int mode)
 }
 
 void
+plotrectangle(int x1, int y1, int x2, int y2, int color)
+{
+  for(int x=x1; x<=x2; x++){
+    for(int y=y1; y<=y2; y++){
+      plotpixel(x, y, color);
+    }
+  }
+}
+
+void
 vgainit(void)
 {
   *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
