@@ -6,7 +6,7 @@
 
 #define false 0
 #define true 1
-#define BG 0x2A
+#define BG 0x2E
 
 /*                                  WONEJO
 BG, BG, BG, BG, 0x00, 0x00, BG, 0x00, 0x00, BG, BG, BG, BG
@@ -29,10 +29,52 @@ BG, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, BG
 BG, BG, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, BG, BG
 */
 
-void
+static void
+print_letter(char letter, int x, int y)
+{
+  //arriba
+  plotrectangle(x, y, x+24, y+8, 0x00);
+  if(letter == 't' || letter == 'i')
+    //medio vertical
+    plotrectangle(x+8, y+8, x+16, y+32, 0x00);
+  else
+    // izquierda
+    plotrectangle(x, y+8, x+8, y+32, 0x00);
+  if(letter == 'c' || letter == 'e' || letter == 'i' || letter == 'o')
+    //abajo
+    plotrectangle(x, y+24, x+24, y+32, 0x00);
+  if(letter == 'a' || letter == 'o')
+    //derecha
+    plotrectangle(x+16, y, x+24, y+32, 0x00);
+  if(letter == 'a' || letter == 'e')
+    //medio horizontal
+    plotrectangle(x+8, y+12, x+16, y+20, 0x00);
+}
+
+static void
 init_board(void)
 {
-  plotrectangle(0,0,319, 199, BG);
+  //fondo
+  plotrectangle(0, 0, 100, 200, 0x3F);
+  plotrectangle(100, 0, 320, 200, BG);
+  //tablero
+  plotrectangle(178, 8, 180, 192, 0x3F);
+  plotrectangle(240, 8, 242, 192, 0x3F);
+  plotrectangle(118, 68, 302, 70, 0x3F);
+  plotrectangle(118, 130, 302, 132, 0x3F);
+
+  // title: TIC TAC TOE
+  print_letter('t', 10, 12);
+  print_letter('i', 38, 12);
+  print_letter('c', 66, 12);
+
+  print_letter('t', 10, 52);
+  print_letter('a', 38, 52);
+  print_letter('c', 66, 52);
+
+  print_letter('t', 10, 92);
+  print_letter('o', 38, 92);
+  print_letter('e', 66, 92);
 }
 
 void
