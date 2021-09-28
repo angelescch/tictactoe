@@ -107,8 +107,30 @@ sys_plotpixel(void)
   int x, y, color;
   if (argint(0, &x) == -1 || argint(1, &y) == -1 || argint(2, &color) == -1)
     return -1;
-  if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 ||color > 255)
+  if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 ||color > 63)
     return -1;
   plotpixel(x, y, color);
+  return 0;
+}
+
+int
+sys_printimage(void)
+{
+  //argptr(int n, char **pp, int size)
+  int whith, length, x, y;
+  char *bitmap;
+  if (argint(0, &whith) == -1 || argint(1, &length) == -1 ||
+      argint(2, &x) == -1 || argint(3, &y) || argptr(4, &bitmap, whith*length)){
+    return -1;
+   }
+   if(x<0 || y<0 || whith<0 || length<0 || x+whith>319 || y+length>199){
+     return -1;
+   }
+   for(int i=0; i<whith*length; i++ ){
+     if(bitmap[i]<0 || bitmap[i]>64){
+       return -1;
+     }
+   }
+  printimage(whith, length, x, y, bitmap);
   return 0;
 }

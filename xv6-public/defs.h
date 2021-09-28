@@ -25,7 +25,7 @@ void            panic(char*) __attribute__((noreturn));
 void            vgainit(void);
 void            modeswitch(int);
 void            plotpixel(int, int, int);
-
+void            printimage(int, int, int, int, char*);
 // exec.c
 int             exec(char*, char**);
 

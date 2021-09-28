@@ -457,6 +457,18 @@ plotpixel(int x, int y, int color)
 }
 
 void
+printimage(int whith, int length, int x, int y, char *bitmap)
+{
+  int ofset;
+  for(int i = y; i < length + y; i++ ){
+    for(int j = x; j < whith + x; j++){
+      ofset = 0xA0000 + 320*i + j;
+      *(char *)P2V(ofset) = bitmap[(i-y)*whith+(j-x)];
+    }
+  }
+}
+
+void
 modeswitch(int mode)
 {
   switch (mode)
