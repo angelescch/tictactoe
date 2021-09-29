@@ -26,7 +26,7 @@ int uptime(void);
 int modeswitch(int);
 int plotpixel(int, int, int);
 int plotrectangle(int, int, int, int, int);
-int printimage(int, int, int, int, char*);
+int printimage(int, int, int, int, char*, int);
 
 // ulib.c
 int stat(const char*, struct stat*);
