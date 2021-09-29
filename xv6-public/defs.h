@@ -22,11 +22,12 @@ void            cprintf(char*, ...);
 void            consoleintr(int(*)(void));
 void            panic(char*) __attribute__((noreturn));
 
+// vga.c
 void            vgainit(void);
 void            modeswitch(int);
 void            plotpixel(int, int, int);
-void            printimage(int, int, int, int, char*);
 void            plotrectangle(int, int, int, int, int);
+void            printimage(int, int, int, int, char*);
 
 // exec.c
 int             exec(char*, char**);
