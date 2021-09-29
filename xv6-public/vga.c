@@ -186,14 +186,33 @@ plotrectangle(int x1, int y1, int x2, int y2, int color)
   }
 }
 
+/*void
++printimage(int whith, int length, int x, int y, char *bitmap, int scale)
+ {
+   int ofset;
+-  for(int i = y; i < length + y; i++ ){
+-    for(int j = x; j < whith + x; j++){
+-      ofset = 0xA0000 + 320*i + j;
+-      *(char *)P2V(ofset) = bitmap[(i-y)*whith+(j-x)];
++  for(int i = y; i < length + y; i++){
++      for(int j = x; j < whith + x; j++){
++          ofset = 0xA0000 + 320*(i+k_y) + j + k_x;
++          *(char *)P2V(ofset) = bitmap[(i-y)*whith+(j-x)];
++        }
++      }
+     }
+   }
+-}
++}*/
+
 void
-printimage(int whith, int length, int x, int y, char *bitmap)
+printimage(int whith, int length, int x, int y, char *bitmap, int scale)
 {
-  int ofset;
-  for(int i = y; i < length + y; i++ ){
-    for(int j = x; j < whith + x; j++){
-      ofset = 0xA0000 + 320*i + j;
-      *(char *)P2V(ofset) = bitmap[(i-y)*whith+(j-x)];
+  for(int i = 0; i < length; i++){
+    for(int j = 0; j < whith; j++){
+      plotrectangle( x + scale*j    , y + scale*i,
+                     x + scale*(j+1), y + scale*(i+1), bitmap[i*whith+j]
+                   );
     }
   }
 }
