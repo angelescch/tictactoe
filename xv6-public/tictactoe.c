@@ -118,8 +118,8 @@ static void
 init_board(void)
 {
   //fondo
-  plotrectangle(0, 0, 100, 200, 0x3F);
-  plotrectangle(100, 0, 320, 200, BG);
+  plotrectangle(0, 0, 100, 199, 0x3F);
+  plotrectangle(100, 0, 319, 199, BG);
   //tablero
   plotrectangle(178, 8, 180, 192, 0x3F);
   plotrectangle(240, 8, 242, 192, 0x3F);
