@@ -105,7 +105,7 @@ init_board(void)
 {
   // Backgroung
   plotrectangle(0, 0, 100, 200, 0x3F);
-  plotrectangle(100, 0, 320, 200, ORNG);
+  plotrectangle(100, 0, 320, 200, 0x2E);
 
   // Tic-tac-toe board
   plotrectangle(116, 6, 118, 194, 0x3F);
@@ -131,8 +131,8 @@ init_board(void)
   print_letter('e', 66, 92);
 
   // Hare & Turtle playing Ilustration
-  printimage(30,18,39,160, draw1, 2);
-  printimage(18, 12, 5,171,draw2,2);
+  printimage(30, 18, 39, 160, draw1, 2);
+  printimage(18, 12, 5, 171, draw2, 2);
 }
 
 /* update_cell dibuja la ficha correspondiente al
@@ -143,9 +143,9 @@ void
 update_cell(int row, int column, char turn)
 {
   if (turn == 'X')
-    printimage(30, 18, 118+62*column, 20+62*row, draw1, 2);
+    printimage(13, 18, 128+62*column, 11+62*row, hare, 3);
   if (turn == 'O')
-    printimage(18, 12, 130+62*column, 26+62*row, draw2, 2);
+    printimage(18, 12, 121+62*column, 20+62*row, turtle, 3);
 }
 
 /* Muestra (en un lugar a determinar, puede ser abajo
