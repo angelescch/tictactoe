@@ -122,7 +122,7 @@ init_board(void)
   plotrectangle(100, 0, 320, 200, BG);
   //tablero
   plotrectangle(178, 8, 180, 192, 0x3F);
-  plotrectangle(241, 8, 243, 192, 0x3F);
+  plotrectangle(240, 8, 242, 192, 0x3F);
   plotrectangle(118, 68, 302, 70, 0x3F);
   plotrectangle(118, 130, 302, 132, 0x3F);
 
@@ -140,8 +140,8 @@ init_board(void)
   print_letter('e', 66, 92);
 
   //dibujito
-  printimage(30, 18, 39, 159, draw1, 2);
-  printimage(18, 12, 3, 171, draw2, 2);
+  printimage(30, 18, 38, 159, draw1, 2);
+  printimage(18, 12, 2, 171, draw2, 2);
 }
 
 /* update_cell dibuja la ficha correspondiente al 
@@ -152,9 +152,9 @@ void
 update_cell(int row, int column, char turn)
 {
   if (turn == 'X')
-    printimage(30, 18, 118+63*column, 20+63*row, draw1, 2);
+    printimage(30, 18, 118+62*column, 20+62*row, draw1, 2);
   if (turn == 'O')
-    printimage(18, 12, 130+63*column, 26+63*row, draw2, 2);
+    printimage(18, 12, 130+62*column, 26+62*row, draw2, 2);
 }
 
 /* Muestra (en un lugar a determinar, puede ser abajo
@@ -162,7 +162,12 @@ update_cell(int row, int column, char turn)
 */
 void
 show_turn(char turn)
-{}
+{
+  if (turn == 'X')
+    printimage(30, 18, 32, 134, draw1, 1);
+  if (turn == 'O')
+    printimage(18, 12, 38, 137, draw2, 1);
+}
 
 /* Hace una pequeña animación, en la celda que se le pasa
  * indicando que no se puede poner una ficha ahí
