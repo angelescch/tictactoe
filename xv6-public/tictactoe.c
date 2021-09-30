@@ -121,10 +121,14 @@ init_board(void)
   plotrectangle(0, 0, 100, 200, 0x3F);
   plotrectangle(100, 0, 320, 200, BG);
   //tablero
+  plotrectangle(116, 6, 118, 194, 0x3F);
   plotrectangle(178, 8, 180, 192, 0x3F);
   plotrectangle(240, 8, 242, 192, 0x3F);
+  plotrectangle(302, 6, 304, 194, 0x3F);
+  plotrectangle(118, 6, 302, 8, 0x3F);
   plotrectangle(118, 68, 302, 70, 0x3F);
   plotrectangle(118, 130, 302, 132, 0x3F);
+  plotrectangle(118, 192, 302, 194, 0x3F);
 
   // title: TIC TAC TOE
   print_letter('t', 10, 12);
@@ -175,7 +179,17 @@ show_turn(char turn)
 */
 void
 occupied_cell(int row, int column)
-{}
+{
+  plotrectangle(116+62*column, 6+62*row, 180+62*column, 8+62*row, 4);
+  plotrectangle(116+62*column, 68+62*row, 180+62*column, 70+62*row, 4);
+  plotrectangle(116+62*column, 6+62*row, 118+62*column, 70+62*row, 4);
+  plotrectangle(178+62*column, 6+62*row, 180+62*column, 70+62*row, 4);
+  sleep(100);
+  plotrectangle(116+62*column, 6+62*row, 180+62*column, 8+62*row, 0x3F);
+  plotrectangle(116+62*column, 68+62*row, 180+62*column, 70+62*row, 0x3F);
+  plotrectangle(116+62*column, 6+62*row, 118+62*column, 70+62*row, 0x3F);
+  plotrectangle(178+62*column, 6+62*row, 180+62*column, 70+62*row, 0x3F);
+}
 
 /* Indica que la celda ingresada no se corresponde
  * con ninguna del tablero. (Puede ser un signo de 
