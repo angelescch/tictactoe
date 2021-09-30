@@ -15,6 +15,30 @@
 #define  LGRN   0x30   //light green
 #define  DGRN   0x22   //dark green
 
+// Rules
+char *rules = 
+" \
+--------------------- TIC TAC TOE ---------------------\n\
+This is a 2-players game and it is played on a 3x3 grid.\n\
+The first player to get 3 marks in a row is the winner.\n\
+The cells are mapped to the keyboard in the following way\n\
+                        |7|8|9|\n\
+                        |4|5|6|\n\
+                        |1|2|3|\n\
+For example: if you hit the key '5' you will make your\n\
+play in the middle of the board. As well, if you hit '7'\n\
+you will play in the top-left cell; and so on...\n\
+Thus, the only valid plays are the numbers from 1 to 9.\n\
+\n\
+There are two characters who play; the turtle and the hare,\n\
+the first turn is decided randomly, and it will be shown on\n\
+the left, at the bottom of the tittle. And each one of the \n\
+players gets to play only one mark per-turn. And it is not\n\
+valid to play in an occupied cell.\n\
+\n\
+Are you ready to be amazed at this game? [y/n]\n\
+";
+
 // bitmaps
 char hare[]={
   ORNG, ORNG, ORNG, ORNG, 0x00, 0x00, ORNG, 0x00, 0x00, ORNG, ORNG, ORNG, ORNG,
@@ -212,8 +236,8 @@ show_result(char winner)
   case 'O':
     printimage(18, 12, 0, 0, turtle, 10);
   default:
-    printimage(13, 18, 0,0, hare, 5);
-    printimage(18, 12, 0 , 0, turtle, 5);
+    printimage(13, 18, 0, 0, hare, 5);
+    printimage(18, 12, 0, 0, turtle, 5);
     break;
   }
   sleep(200);
@@ -268,6 +292,12 @@ get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 int
 main(void)
 {
+  printf(1, rules);
+  char *ans = "\0";
+  ans = gets(ans, 2);
+  if (strcmp("y", ans)!=0)
+    exit();
+
   char board[BOARD_SIZE][BOARD_SIZE] = {
     { '-', '-', '-' },
     { '-', '-', '-' },
@@ -276,7 +306,6 @@ main(void)
   char turn = uptime() % 2 ? 'X' : 'O';   // pseudo-random first turn
   char winner = '-';
   int cell, free_cells = 9;
-
   modeswitch(1);
   init_background();
 

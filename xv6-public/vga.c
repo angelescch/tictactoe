@@ -65,6 +65,13 @@ unsigned char g_80x25_text[] =
   0x0C, 0x00, 0x0F, 0x08, 0x00
 };
 
+// void set_palette(int palette[])
+// {
+//   for (int i = 0; i < 256; i++){
+//     for (int)
+//   }
+// }
+
 void
 write_regs(unsigned char *regs)
 {
@@ -73,8 +80,7 @@ write_regs(unsigned char *regs)
   outb(VGA_MISC_WRITE, *regs);
   regs++;
 /* write SEQUENCER regs */
-  for(i = 0; i < VGA_NUM_SEQ_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_SEQ_REGS; i++){
     outb(VGA_SEQ_INDEX, i);
     outb(VGA_SEQ_DATA, *regs);
     regs++;
@@ -88,22 +94,19 @@ write_regs(unsigned char *regs)
   regs[0x03] |= 0x80;
   regs[0x11] &= ~0x80;
 /* write CRTC regs */
-  for(i = 0; i < VGA_NUM_CRTC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_CRTC_REGS; i++){
     outb(VGA_CRTC_INDEX, i);
     outb(VGA_CRTC_DATA, *regs);
     regs++;
   }
 /* write GRAPHICS CONTROLLER regs */
-  for(i = 0; i < VGA_NUM_GC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_GC_REGS; i++){
     outb(VGA_GC_INDEX, i);
     outb(VGA_GC_DATA, *regs);
     regs++;
   }
 /* write ATTRIBUTE CONTROLLER regs */
-  for(i = 0; i < VGA_NUM_AC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_AC_REGS; i++){
     (void)inb(VGA_INSTAT_READ);
     outb(VGA_AC_INDEX, i);
     outb(VGA_AC_WRITE, *regs);
@@ -122,29 +125,25 @@ read_regs(unsigned char *regs)
   *regs = inb(VGA_MISC_READ);
   regs++;
 /* read SEQUENCER regs */
-  for(i = 0; i < VGA_NUM_SEQ_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_SEQ_REGS; i++){
     outb(VGA_SEQ_INDEX, i);
     *regs = inb(VGA_SEQ_DATA);
     regs++;
   }
 /* read CRTC regs */
-  for(i = 0; i < VGA_NUM_CRTC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_CRTC_REGS; i++){
     outb(VGA_CRTC_INDEX, i);
     *regs = inb(VGA_CRTC_DATA);
     regs++;
   }
 /* read GRAPHICS CONTROLLER regs */
-  for(i = 0; i < VGA_NUM_GC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_GC_REGS; i++){
     outb(VGA_GC_INDEX, i);
     *regs = inb(VGA_GC_DATA);
     regs++;
   }
 /* read ATTRIBUTE CONTROLLER regs */
-  for(i = 0; i < VGA_NUM_AC_REGS; i++)
-  {
+  for(i = 0; i < VGA_NUM_AC_REGS; i++){
     (void)inb(VGA_INSTAT_READ);
     outb(VGA_AC_INDEX, i);
     *regs = inb(VGA_AC_READ);
