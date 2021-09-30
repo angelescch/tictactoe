@@ -102,21 +102,27 @@ print_letter(char letter, int x, int y)
 }
 
 static void
-init_board(void)
+plot_board(int color)
+{
+  plotrectangle(116,  6, 118, 194, color);
+  plotrectangle(178,  8, 180, 192, color);
+  plotrectangle(240,  8, 242, 192, color);
+  plotrectangle(302,  6, 304, 194, color);
+  plotrectangle(118,  6, 302,   8, color);
+  plotrectangle(118, 68, 302,  70, color);
+  plotrectangle(118,130, 302, 132, color);
+  plotrectangle(118,192, 302, 194, color);
+}
+
+static void
+init_background(void)
 {
   // Background
   plotrectangle(0, 0, 100, 200, BGND);
   plotrectangle(100, 0, 320, 200, ORNG);
 
   // Tic-tac-toe board
-  plotrectangle(116, 6, 118, 194, 0x3F);
-  plotrectangle(178, 8, 180, 192, 0x3F);
-  plotrectangle(240, 8, 242, 192, 0x3F);
-  plotrectangle(302, 6, 304, 194, 0x3F);
-  plotrectangle(118, 6, 302, 8, 0x3F);
-  plotrectangle(118, 68, 302, 70, 0x3F);
-  plotrectangle(118, 130, 302, 132, 0x3F);
-  plotrectangle(118, 192, 302, 194, 0x3F);
+  plot_board(WHTE);
 
   // Title: TIC TAC TOE
   print_letter('t', 10, 12);
@@ -144,9 +150,9 @@ void
 update_cell(int row, int column, char turn)
 {
   if (turn == 'X')
-    printimage(13, 18, 135+62*column, 20+62*row, hare, 2);
+    printimage(13, 18, 135+62*column, 144-62*row, hare, 2);
   if (turn == 'O')
-    printimage(18, 12, 130+62*column, 26+62*row, turtle, 2);
+    printimage(18, 12, 130+62*column, 150-62*row, turtle, 2);
 }
 
 /* Muestra (en un lugar a determinar, puede ser abajo
@@ -181,22 +187,40 @@ occupied_cell(int row, int column)
 }
 
 /* Indica que la celda ingresada no se corresponde
- * con ninguna del tablero. (Puede ser un signo de
- * exclamación rojo)
+ * con ninguna del tablero.
 */
 void
 invalid_cell(void)
-{}
+{
+  plot_board(0x04);
+  sleep(100);
+  plot_board(WHTE);
+}
 
 /* Muestra el ganador o en caso de empate
  * algo que lo indique
 */
 void
 show_result(char winner)
-{}
+{
+  plotrectangle(0,0,320, 200, BGND);
+  switch (winner)
+  {
+  case 'X':
+    printimage(13, 18, 0, 0, hare, 10);
+    break;
+  case 'O':
+    printimage(18, 12, 0, 0, turtle, 10);
+  default:
+    printimage(13, 18, 0,0, hare, 5);
+    printimage(18, 12, 0 , 0, turtle, 5);
+    break;
+  }
+  sleep(200);
+}
 
 /* Toma un único char a través de un
-* imput por teclado
+* input por teclado
 */
 static int
 get_cell(void)
@@ -214,8 +238,10 @@ char
 get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 {
   char winner = '-';
-  int winner_diag1_O = true, winner_diag2_O = true, winner_diag1_X = true, winner_diag2_X = true;
-  int winner_row_O = true, winner_col_O = true, winner_row_X = true, winner_col_X = true;
+  int winner_diag1_O = true, winner_diag2_O = true;
+  int winner_diag1_X = true, winner_diag2_X = true;
+  int winner_row_O = true, winner_col_O = true;
+  int winner_row_X = true, winner_col_X = true;
 
   for (int k = 0; k < BOARD_SIZE; k++){
     winner_col_O = winner_col_O && board[row][k] == 'O';
@@ -226,9 +252,9 @@ get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 
   for (int k = 0; k < BOARD_SIZE; k++){
     winner_diag1_O = winner_diag1_O && board[k][k] == 'O';
-    winner_diag2_O = winner_diag2_O && board[BOARD_SIZE][BOARD_SIZE - k] == 'O';
+    winner_diag2_O = winner_diag2_O && board[k][BOARD_SIZE - k - 1] == 'O';
     winner_diag1_X = winner_diag1_X && board[k][k] == 'X';
-    winner_diag2_X = winner_diag2_X && board[BOARD_SIZE][BOARD_SIZE - k] == 'X';
+    winner_diag2_X = winner_diag2_X && board[k][BOARD_SIZE - k - 1] == 'X';
   }
 
   if (winner_diag1_O || winner_diag2_O || winner_row_O || winner_col_O)
@@ -252,7 +278,7 @@ main(void)
   int cell, free_cells = 9;
 
   modeswitch(1);
-  init_board();
+  init_background();
 
   while (winner == '-' && free_cells != 0){
     show_turn(turn);
@@ -274,5 +300,6 @@ main(void)
   }
   show_result(winner);
 
+  modeswitch(0);
   exit();
 }
