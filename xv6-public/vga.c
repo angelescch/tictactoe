@@ -9,6 +9,7 @@
 #define VGA_MISC_WRITE      0x3C2
 #define VGA_SEQ_INDEX       0x3C4
 #define VGA_SEQ_DATA        0x3C5
+#define PALETTE_MASK        0x3C6
 #define VGA_DAC_READ_INDEX  0x3C7
 #define VGA_DAC_WRITE_INDEX 0x3C8
 #define VGA_DAC_DATA        0x3C9
@@ -65,12 +66,17 @@ unsigned char g_80x25_text[] =
   0x0C, 0x00, 0x0F, 0x08, 0x00
 };
 
-// void set_palette(int palette[])
-// {
-//   for (int i = 0; i < 256; i++){
-//     for (int)
-//   }
-// }
+void set_palette(int palette[])
+{
+  for (int r = 0; r < 4; r++){
+    for (int g = 0; g < 4; g++){
+      for (int b = 0; b < 4; b++){
+        outb(PALETTE_MASK, 0xFF);
+        outb(VGA_DAC_WRITE_INDEX, r*16+g*4+b);
+      }
+    }
+  }
+}
 
 void
 write_regs(unsigned char *regs)
