@@ -67,7 +67,7 @@ char draw2[]={
   TURTLE, TURTLE, TURTLE, SHELL, SHELL, SHELL, SHELL, SHELL, SHELL, SHELL, SHELL, SHELL, TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,
   WHTE,WHTE,TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,WHTE,
   WHTE,WHTE,TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,WHTE,
-  WHTE,WHTE,TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,WHTE,TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,0x00
+  WHTE,WHTE,TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,WHTE,TURTLE, TURTLE, TURTLE, WHTE,WHTE,WHTE,WHTE,WHTE
   };
 char draw1[]={
 WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,0x00,WHTE,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,
@@ -118,11 +118,11 @@ static void
 init_board(void)
 {
   //fondo
-  plotrectangle(0, 0, 100, 199, 0x3F);
-  plotrectangle(100, 0, 319, 199, BG);
+  plotrectangle(0, 0, 100, 200, 0x3F);
+  plotrectangle(100, 0, 320, 200, BG);
   //tablero
   plotrectangle(178, 8, 180, 192, 0x3F);
-  plotrectangle(240, 8, 242, 192, 0x3F);
+  plotrectangle(241, 8, 243, 192, 0x3F);
   plotrectangle(118, 68, 302, 70, 0x3F);
   plotrectangle(118, 130, 302, 132, 0x3F);
 
@@ -140,8 +140,8 @@ init_board(void)
   print_letter('e', 66, 92);
 
   //dibujito
-  printimage(30,18,39,160, draw1, 2);
-  printimage(18, 12, 5,171,draw2,2);
+  printimage(30, 18, 39, 159, draw1, 2);
+  printimage(18, 12, 3, 171, draw2, 2);
 }
 
 /* update_cell dibuja la ficha correspondiente al 
@@ -150,7 +150,12 @@ init_board(void)
 */
 void
 update_cell(int row, int column, char turn)
-{}
+{
+  if (turn == 'X')
+    printimage(30, 18, 118+63*column, 20+63*row, draw1, 2);
+  if (turn == 'O')
+    printimage(18, 12, 130+63*column, 26+63*row, draw2, 2);
+}
 
 /* Muestra (en un lugar a determinar, puede ser abajo
  * de "TICTACTOE") el personaje del turno correspondiente
