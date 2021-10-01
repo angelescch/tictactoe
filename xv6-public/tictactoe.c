@@ -16,7 +16,7 @@
 #define  DGRN   0x22   //dark green
 
 // Rules
-char *rules = 
+char *intro = 
 " \
 --------------------- TIC TAC TOE ---------------------\n\
 This is a 2-players game and it is played on a 3x3 grid.\n\
@@ -199,15 +199,15 @@ show_turn(char turn)
 void
 occupied_cell(int row, int column)
 {
-  plotrectangle(116+62*column, 6+62*row, 180+62*column, 8+62*row, 4);
-  plotrectangle(116+62*column, 68+62*row, 180+62*column, 70+62*row, 4);
-  plotrectangle(116+62*column, 6+62*row, 118+62*column, 70+62*row, 4);
-  plotrectangle(178+62*column, 6+62*row, 180+62*column, 70+62*row, 4);
+  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 4);
+  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 4);
+  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 4);
+  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 4);
   sleep(100);
-  plotrectangle(116+62*column, 6+62*row, 180+62*column, 8+62*row, 0x3F);
-  plotrectangle(116+62*column, 68+62*row, 180+62*column, 70+62*row, 0x3F);
-  plotrectangle(116+62*column, 6+62*row, 118+62*column, 70+62*row, 0x3F);
-  plotrectangle(178+62*column, 6+62*row, 180+62*column, 70+62*row, 0x3F);
+  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 0x3F);
+  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 0x3F);
+  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 0x3F);
+  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 0x3F);
 }
 
 /* Indica que la celda ingresada no se corresponde
@@ -227,21 +227,21 @@ invalid_cell(void)
 void
 show_result(char winner)
 {
-  plotrectangle(0,0,320, 200, BGND);
+  plotrectangle(0,0,320, 200, ORNG);
   switch (winner)
   {
   case 'X':
-    printimage(13, 18, 0, 0, hare, 10);
+    printimage(13, 18, 95, 10, hare, 10);
     break;
   case 'O':
-    printimage(18, 12, 0, 0, turtle, 10);
+    printimage(18, 12, 70, 40, turtle, 10);
     break;
   default:
-    printimage(13, 18, 0, 0, hare, 5);
-    printimage(18, 12, 0, 0, turtle, 5);
+    printimage(13, 18, 188, 28, hare, 8);
+    printimage(18, 12, 28, 76, turtle, 8);
     break;
   }
-  sleep(200);
+  sleep(1000);
 }
 
 /* Toma un único char a través de un
@@ -293,7 +293,7 @@ get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 int
 main(void)
 {
-  printf(1, rules);
+  printf(1, intro);
   char *ans = "\0";
   ans = gets(ans, 2);
   if (strcmp("y", ans)!=0)
