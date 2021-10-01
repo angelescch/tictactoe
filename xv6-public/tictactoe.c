@@ -235,6 +235,7 @@ show_result(char winner)
     break;
   case 'O':
     printimage(18, 12, 0, 0, turtle, 10);
+    break;
   default:
     printimage(13, 18, 0, 0, hare, 5);
     printimage(18, 12, 0, 0, turtle, 5);
@@ -249,9 +250,9 @@ show_result(char winner)
 static int
 get_cell(void)
 {
-  char *tmp = "\0";
-  tmp = gets(tmp, 2);
-  return atoi(tmp);
+  int tmp;
+  tmp = getc();
+  return tmp-'0';
 }
 
 /* Dada la situación de la partida devuelve el

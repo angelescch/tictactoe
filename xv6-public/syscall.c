@@ -107,6 +107,7 @@ extern int sys_modeswitch(void);
 extern int sys_plotpixel(void);
 extern int sys_plotrectangle(void);
 extern int sys_printimage(void);
+extern int sys_getc(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]          sys_fork,
@@ -134,6 +135,7 @@ static int (*syscalls[])(void) = {
 [SYS_plotpixel]     sys_plotpixel,
 [SYS_plotrectangle] sys_plotrectangle,
 [SYS_printimage]    sys_printimage,
+[SYS_getc]          sys_getc,
 };
 
 void

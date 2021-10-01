@@ -296,3 +296,16 @@ consoleinit(void)
 
   ioapicenable(IRQ_KBD, 0);
 }
+
+int
+getc(void)
+{
+  int c = -1;
+  while(input.e == input.w){
+    wakeup(&input.e);
+  }
+  if(input.e>0)
+    c = (int)input.buf[input.e-1 % INPUT_BUF];
+  input.w = input.e;
+  return c;
+}

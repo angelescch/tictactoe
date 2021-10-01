@@ -150,3 +150,8 @@ sys_printimage(void)
   return 0;
 }
 
+int
+sys_getc(void)
+{
+  return getc();
+}

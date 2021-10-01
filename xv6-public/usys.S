@@ -33,4 +33,4 @@ SYSCALL(modeswitch)
 SYSCALL(plotpixel)
 SYSCALL(plotrectangle)
 SYSCALL(printimage)
-
+SYSCALL(getc)
