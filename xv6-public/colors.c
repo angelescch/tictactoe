@@ -10,6 +10,7 @@ main(void)
         plotrectangle(x*10, y*10, x*10+10, y*10+10, y*10+x);
     }
   }
-//   modeswitch(0);
+  sleep(200);
+  modeswitch(0);
   exit();
 }

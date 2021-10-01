@@ -90,6 +90,8 @@ sys_uptime(void)
   return xticks;
 }
 
+
+/* VGA-related syscalls */
 int
 sys_modeswitch(void)
 {
@@ -132,21 +134,21 @@ int
 sys_printimage(void)
 {
   //argptr(int n, char **pp, int size)
-  int whith, length, x, y, scale;
+  int width, length, x, y, scale;
   char *bitmap;
-  if (argint(0, &whith) == -1 || argint(1, &length) == -1 || argint(2, &x) == -1 ||
-      argint(3, &y) || argptr(4, &bitmap, whith*length) || argint(5, &scale) == -1){
+  if (argint(0, &width) == -1 || argint(1, &length) == -1 || argint(2, &x) == -1 ||
+      argint(3, &y) || argptr(4, &bitmap, width*length) || argint(5, &scale) == -1){
     return -1;
    }
-   if(x<0 || y<0 || whith<0 || length<0 || x+ scale*(whith)>319 || y + scale*(length)>199){
+   if(x<0 || y<0 || width<0 || length<0 || x+ scale*(width)>319 || y + scale*(length)>199){
      return -1;
    }
-   for(int i=0; i<whith*length; i++ ){
+   for(int i=0; i<width*length; i++ ){
      if(bitmap[i]<0 || bitmap[i]>64){
        return -1;
      }
    }
-  printimage(whith, length, x, y, bitmap, scale);
+  printimage(width, length, x, y, bitmap, scale);
   return 0;
 }
 

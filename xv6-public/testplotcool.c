@@ -143,6 +143,8 @@ modeswitch(1);
   //tortuga
   printimage(18, 12, 100, 130, tortuga, 1);
 
+  sleep(200);
+  modeswitch(0);
   exit();
 }
 

@@ -21,5 +21,7 @@ main(void)
     for(i=80; i<120; ++i)
       plotpixel(j,i,7);
 
+  sleep(200);
+  modeswitch(0);
   exit();
 }
