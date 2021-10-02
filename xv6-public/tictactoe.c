@@ -20,17 +20,17 @@ The cells are mapped to the keyboard in the following way\n\
                         |1|2|3|\n\
 For example: if you hit the key '5' you will place your \n\
 mark in the middle of the board. As well, if you hit \n\
-'7' you will play in the top-left cell; and so on...\n\
+'7' you will play on the top-left cell; and so on...\n\
 Thus, the only valid plays are the numbers from 1 to 9.\n\
 \n\
 There are two characters; the turtle and the hare,\n\
 the first turn is decided randomly, and it will be shown on\n\
-the left, at the bottom of the tittle. And each one of the \n\
-players gets to play only one mark per-turn. And it is not\n\
-valid to play in an occupied cell.\n\
+the left, at the bottom of the tittle. Each player \n\
+gets to play only one mark per-turn. And it is not\n\
+valid to chose an occupied cell.\n\
 (If you want to quit the game before it finishes you can press 'q')\n\
 \n\
-Are you ready to be amazed at this game? [y/n]\n\
+Are you ready to be amazed by this game? [y/n]\n\
 ";
 
 static void
