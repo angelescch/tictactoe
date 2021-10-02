@@ -307,5 +307,6 @@ getc(void)
   if(input.e>0)
     c = (int)input.buf[input.e-1 % INPUT_BUF];
   input.w = input.e;
+  input.r = input.e;
   return c;
 }
