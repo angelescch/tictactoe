@@ -111,22 +111,6 @@ char draw2[]={
 };
 
 static void
-print_letter(char letter, int x, int y)
-{
-  plotrectangle(x, y, x+24, y+8, 0x00);         // upper line (T, I, C, A, O and E)
-  if(letter == 't' || letter == 'i')
-    plotrectangle(x+8, y+8, x+16, y+32, 0x00);  // vertical line in the middle  (T, I)
-  else
-    plotrectangle(x, y+8, x+8, y+32, 0x00);     // left line (C, A, 0, E)
-  if(letter == 'c' || letter == 'e' || letter == 'i' || letter == 'o')
-    plotrectangle(x, y+24, x+24, y+32, 0x00);   //bottom line (I, E, C, O)
-  if(letter == 'a' || letter == 'o')
-    plotrectangle(x+16, y, x+24, y+32, 0x00);   //right line (A, O)
-  if(letter == 'a' || letter == 'e')
-    plotrectangle(x+8, y+12, x+16, y+20, 0x00); //horizonatal line in the middle (E, A)
-}
-
-static void
 plot_board(int color)
 {
   plotrectangle(116,  6, 118, 194, color);
@@ -150,17 +134,17 @@ init_background(void)
   plot_board(WHTE);
 
   // Title: TIC TAC TOE
-  print_letter('t', 10, 12);
-  print_letter('i', 38, 12);
-  print_letter('c', 66, 12);
+  printchar('T', 10, 12, 0x0, 3);
+  printchar('i', 38, 12, 0x0, 3);
+  printchar('c', 66, 12, 0x0, 3);
 
-  print_letter('t', 10, 52);
-  print_letter('a', 38, 52);
-  print_letter('c', 66, 52);
+  printchar('t', 10, 52, 0x0, 3);
+  printchar('A', 38, 52, 0x0, 3);
+  printchar('c', 66, 52, 0x0, 3);
 
-  print_letter('t', 10, 92);
-  print_letter('o', 38, 92);
-  print_letter('e', 66, 92);
+  printchar('T', 10, 92, 0x0, 3);
+  printchar('o', 38, 92, 0x0, 3);
+  printchar('E', 66, 92, 0x0, 3);
 
   // Hare & Turtle playing Ilustration
   printimage(30, 18, 39, 161, draw1, 2);
@@ -200,10 +184,10 @@ show_turn(char turn)
 void
 occupied_cell(int row, int column)
 {
-  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 4);
-  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 4);
-  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 4);
-  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 4);
+  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 0x04);
+  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 0x04);
+  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 0x04);
+  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 0x04);
   sleep(100);
   plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 0x3F);
   plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 0x3F);
@@ -242,7 +226,7 @@ show_result(char winner)
     printimage(18, 12, 28, 76, turtle, 8);
     break;
   }
-  sleep(1000);
+  sleep(500);
 }
 
 /* Toma un único char a través de un

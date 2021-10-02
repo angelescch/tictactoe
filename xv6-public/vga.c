@@ -365,9 +365,9 @@ write_regs(unsigned char *regs)
 }
 
 void
-load_font(unsigned char *font, uint len)
+load_font(unsigned char font[4096])
 {
-  for(uint i = 0; i < len/16; i++){
+  for(uint i = 0; i < 256; i++){
     for(uint j = 0; j < 16; j++)
     *(char *)P2V(0xB8000 + 32*i+j) = font[16*i+j];
   }
@@ -397,7 +397,7 @@ modeswitch(int mode)
     outb(VGA_GC_DATA,   0x00);
     outb(VGA_SEQ_INDEX, 0x02);
     outb(VGA_SEQ_DATA,  0x04);
-    load_font(g_8x16_font, NELEM(g_8x16_font));
+    load_font(g_8x16_font);
     outb(VGA_GC_INDEX,  0x05);
     outb(VGA_GC_DATA,   0x10);
     outb(VGA_SEQ_INDEX, 0x02);
