@@ -26,7 +26,7 @@
 #define VGA_NUM_REGS    (1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + \
                         VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
 
-unsigned char g_320x200x256[] =
+static uchar g_320x200x256[] =
 {
   // SEQ
   0x03, 0x01, 0x0F, 0x00, 0x0E,
@@ -44,7 +44,7 @@ unsigned char g_320x200x256[] =
   0x41, 0x00, 0x0F, 0x00, 0x00
 };
 
-unsigned char g_80x25_text[] =
+static uchar g_80x25_text[] =
 {
   // SEQ
   0x03, 0x00, 0x03, 0x00, 0x02,
@@ -62,7 +62,7 @@ unsigned char g_80x25_text[] =
   0x0C, 0x00, 0x0F, 0x08, 0x00
 };
 
-static unsigned char g_8x16_font[4096] =
+static uchar g_8x16_font[4096] =
 {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x7E, 0x81, 0xA5, 0x81, 0x81, 0xBD, 0x99, 0x81, 0x81, 0x7E, 0x00, 0x00, 0x00, 0x00, 
@@ -354,9 +354,9 @@ write_regs(unsigned char *regs)
   }
 /* write ATTRIBUTE CONTROLLER regs */
   for(i = 0; i < VGA_NUM_AC_REGS; i++){
-    // (void)inb(VGA_INSTAT_READ);
-    // outb(VGA_AC_INDEX, i);
-    // outb(VGA_AC_WRITE, *regs);
+    (void)inb(VGA_INSTAT_READ);
+    outb(VGA_AC_INDEX, i);
+    outb(VGA_AC_WRITE, *regs);
     regs++;
   }
 /* lock 16-color palette and unblank display */
@@ -371,6 +371,19 @@ load_font(unsigned char *font, uint len)
     for(uint j = 0; j < 16; j++)
     *(char *)P2V(0xB8000 + 32*i+j) = font[16*i+j];
   }
+}
+
+void
+footer(void)
+{
+  *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
+  *(int *)P2V(0xB8F92) = 0x3E00 + 'S';
+  *(int *)P2V(0xB8F94) = 0x3E00 + 'O';
+  *(int *)P2V(0xB8F96) = 0x3E00 + '2';
+  *(int *)P2V(0xB8F98) = 0x3E00 + '0';
+  *(int *)P2V(0xB8F9A) = 0x3E00 + '2';
+  *(int *)P2V(0xB8F9C) = 0x3E00 + '1';
+  *(int *)P2V(0xB8F9E) = 0x3E00 + ' ';
 }
 
 void
@@ -390,6 +403,7 @@ modeswitch(int mode)
     outb(VGA_SEQ_INDEX, 0x02);
     outb(VGA_SEQ_DATA,  0x03);
     memset((int *)P2V(0xB8000), 0, 0x08000);
+    footer();
     break;
   case 1:
     write_regs(g_320x200x256);
@@ -427,16 +441,12 @@ printimage(int width, int length, int x, int y, char *bitmap, int scale)
 }
 
 void
-vgainit(void)
+printchar(uchar c, int x, int y, int color, int scale)
 {
-  *(int *)P2V(0xB8F90) = 0x3E00 + ' ';
-  *(int *)P2V(0xB8F92) = 0x3E00 + 'S';
-  *(int *)P2V(0xB8F94) = 0x3E00 + 'O';
-  *(int *)P2V(0xB8F96) = 0x3E00 + '2';
-  *(int *)P2V(0xB8F98) = 0x3E00 + '0';
-  *(int *)P2V(0xB8F9A) = 0x3E00 + '2';
-  *(int *)P2V(0xB8F9C) = 0x3E00 + '1';
-  *(int *)P2V(0xB8F9E) = 0x3E00 + ' ';
-  modeswitch(1);
-  modeswitch(0);
+  for(int i = 0; i < 16; i++)
+    for(int j = 0; j < 8; j++)
+      if(g_8x16_font[c*16 + i] & 1 << (8-j))
+        plotrectangle(x + scale*j, y + scale*i,
+                      x + scale*(j+1), y + scale*(i+1), color
+                      );
 }

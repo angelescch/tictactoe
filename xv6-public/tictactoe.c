@@ -324,6 +324,7 @@ main(void)
       int row = cell / BOARD_SIZE;
       int column = cell % BOARD_SIZE;
       if (board[row][column] == '-'){
+        printf(1, "bueno dale\n");
         free_cells--;
         board[row][column] = turn;
         update_cell(row, column, turn);

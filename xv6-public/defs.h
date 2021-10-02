@@ -24,11 +24,12 @@ void            panic(char*) __attribute__((noreturn));
 int             getc(void);
 
 // vga.c
-void            vgainit(void);
+void            footer(void);
 void            modeswitch(int);
 void            plotpixel(int, int, int);
 void            plotrectangle(int, int, int, int, int);
 void            printimage(int, int, int, int, char*,int);
+void            printchar(uchar, int, int, int, int);
 
 // exec.c
 int             exec(char*, char**);

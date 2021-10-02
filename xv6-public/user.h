@@ -23,11 +23,12 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int getc(void);
 int modeswitch(int);
 int plotpixel(int, int, int);
 int plotrectangle(int, int, int, int, int);
 int printimage(int, int, int, int, char*, int);
-int getc(void);
+int printchar(uchar, int, int, int, int);
 
 // ulib.c
 int stat(const char*, struct stat*);

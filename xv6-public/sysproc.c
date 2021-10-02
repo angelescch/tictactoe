@@ -90,6 +90,11 @@ sys_uptime(void)
   return xticks;
 }
 
+int
+sys_getc(void)
+{
+  return getc();
+}
 
 /* VGA-related syscalls */
 int
@@ -133,14 +138,13 @@ sys_plotrectangle(void)
 int
 sys_printimage(void)
 {
-  //argptr(int n, char **pp, int size)
   int width, length, x, y, scale;
   char *bitmap;
   if (argint(0, &width) == -1 || argint(1, &length) == -1 || argint(2, &x) == -1 ||
       argint(3, &y) || argptr(4, &bitmap, width*length) || argint(5, &scale) == -1){
     return -1;
    }
-   if(x<0 || y<0 || width<0 || length<0 || x+ scale*(width)>319 || y + scale*(length)>199){
+   if(x<0 || y<0 || width<0 || length<0 || x+ scale*(width)>320 || y + scale*(length)>200){
      return -1;
    }
    for(int i=0; i<width*length; i++ ){
@@ -153,7 +157,16 @@ sys_printimage(void)
 }
 
 int
-sys_getc(void)
+sys_printchar(void)
 {
-  return getc();
+  int c;
+  int x, y, color, scale;
+  if(argint(0, &c) == -1 || argint(1, &x) == -1 || argint(2, &y) == -1 ||
+     argint(3, &color) == -1 || argint(4, &scale) == -1)
+    return -1;
+  if(x<0 || y<0 || color<0 || color>255 || scale < 0 ||
+     x + scale*8>320 || y + scale*16>200)
+    return -1;
+  printchar((uchar)c, x, y, color, scale);
+  return 0;
 }
