@@ -199,11 +199,19 @@ occupied_cell(int row, int column)
  * con ninguna del tablero.
 */
 void
-invalid_cell(void)
+invalid_cell(char board[BOARD_SIZE][BOARD_SIZE])
 {
-  plot_board(0x04);
+  plotrectangle(118, 8, 302, 192, 0x04);
+  plot_board(0x0);
+  for(int i = 0; i < 3; i++)
+    for(int j = 0; j < 3; j++)
+    printchar('1'+3*i+j, 140+60*j, 142-60*i, 0x00, 2);
   sleep(100);
+  plotrectangle(118, 8, 302, 192, ORNG);
   plot_board(WHTE);
+  for(int i = 0; i < 3; i++)
+    for(int j = 0; j < 3; j++)
+      update_cell(i, j, board[i][j]);
 }
 
 /* Muestra el ganador o en caso de empate
@@ -316,7 +324,7 @@ main(void)
       } else
         occupied_cell(row, column);
     } else
-      invalid_cell();
+      invalid_cell(board);
   }
   show_result(winner);
 
