@@ -1,19 +1,12 @@
 #include "types.h"
 #include "user.h"
+#include "bitmaps.h"
 
 #define BOARD_SIZE 3
 #define CELL_MAX (BOARD_SIZE * BOARD_SIZE - 1)
 
 #define false 0
 #define true 1
-
-//colors
-#define  BGND   0x0F   //lilac
-#define  ORNG   0x2E   //orange
-#define  WHTE   0x3F   //white
-#define  GRAY   0x07   //gray
-#define  LGRN   0x30   //light green
-#define  DGRN   0x22   //dark green
 
 // Rules
 char *intro = 
@@ -27,88 +20,18 @@ The cells are mapped to the keyboard in the following way\n\
                         |1|2|3|\n\
 For example: if you hit the key '5' you will place your \n\
 mark in the middle of the board. As well, if you hit \n\
-'7' you will play in the top-left cell; and so on...\n\
+'7' you will play on the top-left cell; and so on...\n\
 Thus, the only valid plays are the numbers from 1 to 9.\n\
 \n\
 There are two characters; the turtle and the hare,\n\
 the first turn is decided randomly, and it will be shown on\n\
-the left, at the bottom of the tittle. And each one of the \n\
-players gets to play only one mark per-turn. And it is not\n\
-valid to play in an occupied cell.\n\
+the left, at the bottom of the tittle. Each player \n\
+gets to play only one mark per-turn. And it is not\n\
+valid to chose an occupied cell.\n\
 (If you want to quit the game before it finishes you can press 'q')\n\
 \n\
-Are you ready to be amazed at this game? [y/n]\n\
+Are you ready to be amazed by this game? [y/n]\n\
 ";
-
-// bitmaps
-char hare[]={
-  ORNG, ORNG, ORNG, ORNG, 0x00, 0x00, ORNG, 0x00, 0x00, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, ORNG, 0x00, WHTE, 0x00, ORNG, 0x00, WHTE, 0x00, ORNG, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, 0x00, WHTE, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, GRAY, 0x00, ORNG, 0x00, GRAY, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, 0x00, WHTE, GRAY, 0x00, ORNG, 0x00, GRAY, WHTE, 0x00, ORNG, ORNG,
-  ORNG, ORNG, ORNG, 0x00, GRAY, GRAY, 0x00, GRAY, GRAY, 0x00, ORNG, ORNG, ORNG,
-  ORNG, ORNG, 0x00, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, 0x00, ORNG, ORNG,
-  ORNG, 0x00, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, 0x00, ORNG,
-  ORNG, 0x00, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, 0x00, ORNG,
-  0x00, GRAY, GRAY, 0x00, GRAY, GRAY, GRAY, GRAY, GRAY, 0x00, GRAY, GRAY, 0x00,
-  0x00, GRAY, GRAY, 0x00, WHTE, WHTE, 0x00, WHTE, WHTE, 0x00, GRAY, GRAY, 0x00,
-  0x00, GRAY, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, GRAY, 0x00,
-  ORNG, 0x00, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, 0x00, ORNG,
-  ORNG, ORNG, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, ORNG, ORNG,
-};
-char turtle[]={
-  ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, DGRN, DGRN, DGRN, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, ORNG, ORNG, ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, ORNG, LGRN, LGRN, LGRN, LGRN, ORNG,
-  ORNG, ORNG, ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, ORNG, LGRN, LGRN, 0x00, LGRN, LGRN,
-  ORNG, ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, 0x00, LGRN, LGRN,
-  ORNG, ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, LGRN, LGRN,
-  ORNG, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, LGRN,
-  LGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, ORNG, ORNG,
-  LGRN, LGRN, LGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG,
-  ORNG, ORNG, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
-};
-char draw1[]={
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,BGND,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,0x00,WHTE,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,0x00,WHTE,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,0x00,GRAY,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,GRAY,0x00,GRAY,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,GRAY,0x00,GRAY,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,0x00,0x00,GRAY,GRAY,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,GRAY,GRAY,GRAY,GRAY,GRAY,0x00,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,GRAY,0x00,WHTE,WHTE,GRAY,GRAY,GRAY,0x00,BGND,BGND,0x00,0x00,BGND,BGND,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,0x00,WHTE,WHTE,WHTE,GRAY,GRAY,WHTE,0x00,0x00,WHTE,WHTE,0x00,0x00,BGND,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,GRAY,WHTE,WHTE,WHTE,WHTE,GRAY,GRAY,0x00,0x00,BGND,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,GRAY,GRAY,GRAY,GRAY,0x00,0x00,BGND,BGND,
-  BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,0x00,WHTE,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,GRAY,GRAY,WHTE,GRAY,GRAY,GRAY,0x00,BGND,BGND,
-  BGND,BGND,BGND,0x00,BGND,BGND,BGND,0x00,BGND,BGND,BGND,BGND,BGND,0x00,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,0x00,0x00,WHTE,WHTE,GRAY,GRAY,0x00,0x00,BGND,
-  BGND,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,BGND,BGND,BGND,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,0x00,WHTE,WHTE,GRAY,GRAY,GRAY,0x00,WHTE,0x00,
-  BGND,BGND,0x00,BGND,BGND,BGND,BGND,BGND,0x00,BGND,BGND,BGND,BGND,0x00,WHTE,WHTE,WHTE,WHTE,0x00,0x00,0x00,0x00,WHTE,WHTE,GRAY,WHTE,WHTE,WHTE,WHTE,0x00,
-  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,BGND,0x00,WHTE,WHTE,WHTE,0x00,0x00,WHTE,WHTE,WHTE,WHTE,WHTE,WHTE,GRAY,GRAY,0x00,0x00,0x00,BGND,
-  BGND,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,BGND,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,BGND,BGND,BGND
-};
-char draw2[]={
-  BGND, BGND, BGND, BGND, BGND, BGND, DGRN, DGRN, DGRN, BGND, BGND, BGND, BGND, BGND, BGND, BGND, BGND, BGND, 
-  BGND, BGND, BGND, BGND, BGND, DGRN, DGRN, DGRN, DGRN, DGRN, BGND, BGND, BGND, BGND, BGND, BGND, BGND, BGND, 
-  BGND, BGND, BGND, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, BGND, LGRN, LGRN, LGRN, LGRN, BGND, 
-  BGND, BGND, BGND, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, BGND, LGRN, LGRN, 0x00, LGRN, LGRN, 
-  BGND, BGND, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, 0x00, LGRN, LGRN, 
-  BGND, BGND, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, LGRN, LGRN, 
-  BGND, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, LGRN, 
-  LGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, BGND, BGND, 
-  LGRN, LGRN, LGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, BGND, BGND, BGND, 
-  BGND, BGND, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, BGND, BGND, BGND, BGND, BGND, 
-  BGND, BGND, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, BGND, BGND, BGND, BGND, BGND, 
-  BGND, BGND, LGRN, LGRN, LGRN, BGND, BGND, BGND, BGND, BGND, LGRN, LGRN, LGRN, BGND, BGND, BGND, BGND, 0x00
-};
 
 static void
 plot_board(int color)
@@ -225,32 +148,28 @@ show_result(char winner)
   {
   case 'X':
     printimage(13, 18, 95, 10, hare, 10);
+    char *msg1 = " Hare wins! "; 
+    for(int i=0; i<12; i++){
+      printchar(msg1[i], 0 + i*8, 100, 0x0, 1);
+    }
     break;
   case 'O':
     printimage(18, 12, 70, 40, turtle, 10);
+    char *msg2 = "Turtle wins!";
+    for(int i=0; i<12; i++){
+      printchar(msg2[i], 100 + i*8, 175, 0x0, 1);
+    }
     break;
   default:
-    printimage(13, 18, 188, 28, hare, 8);
-    printimage(18, 12, 28, 76, turtle, 8);
+    printimage(13, 18, 188, 20, hare, 8);
+    printimage(18, 12, 28, 60, turtle, 8);
+    char *msg3 = "It's a tie!!";
+    for(int i=0; i<12; i++){
+      printchar(msg3[i], 100 + i*8, 175, 0x0, 1);
+    }
     break;
   }
   sleep(500);
-}
-
-/* Toma un único char a través de un
-* input por teclado
-*/
-static int
-get_cell(void)
-{
-  int tmp;
-  tmp = getc();
-  // Si la entrada es una 'q', salir del juego
-  if (tmp=='q'){
-    modeswitch(0);
-    exit();
-  }
-  return tmp-'0';
 }
 
 /* Dada la situación de la partida devuelve el
@@ -291,6 +210,7 @@ get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 int
 main(void)
 {
+  // Init in text mode
   printf(1, intro);
   char *ans = "\0";
   ans = gets(ans, 2);
@@ -310,7 +230,12 @@ main(void)
 
   while (winner == '-' && free_cells != 0){
     show_turn(turn);
-    cell = get_cell();
+    cell = getc();
+    if (cell=='q'){
+      modeswitch(0);
+      exit();
+    }
+    cell = cell - '0';
     cell--;     // transform cell index to be 0-based
     if (cell >= 0 && cell <= CELL_MAX){
       int row = cell / BOARD_SIZE;
@@ -327,7 +252,6 @@ main(void)
       invalid_cell(board);
   }
   show_result(winner);
-
   modeswitch(0);
   exit();
 }
