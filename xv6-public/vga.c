@@ -163,10 +163,9 @@ plotpixel(int x, int y, int color)
 void
 plotrectangle(int x1, int y1, int x2, int y2, int color)
 {
-  for(int x = x1; x < x2; x++){
-    for(int y = y1; y < y2; y++){
-      plotpixel(x, y, color);
-    }
+  for(int y = y1; y < y2; y++){
+    int ofset = 0xA0000 + 320*y + x1;
+    memset(P2V(ofset), color, x2-x1);
   }
 }
 
