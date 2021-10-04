@@ -61,7 +61,7 @@ Seguimos la estructura de las syscalls ya implementadas en xv6 y, como propuso l
 
 ![Foto del programa en ejecución](https://imgur.com/NLDjssS.png)
 
-![Foto del programa en ejecución](https://imgur.com/OevLXz0.png)
+![Foto del programa en ejecución](https://i.imgur.com/5Yxchh3.png)
 
 - ### moo
     ¿Have you mooed today?
@@ -78,6 +78,16 @@ En la primera semana principalmente investigamos sobre VGA, y no trabajamos much
 Luego agregamos las syscalls plotpixel y plotrectangle, y decidimos hacer como programa de usuario una versión del tateti, basada en la historia para niños "La liebre y la tortuga".
 
 Las siguientes semanas nos dedicamos puntualmente al desarrollo del programa de usuario tictactoe y pulimos detalles tanto visuales como funcionales. Además de agregar información útil para que cualquier usuario que no haya jugado nunca al tictactoe pueda entender su funcionamiento.
+
+Por último como el modo gráfico es de 256, programamos la paleta para poder usar todos los colores.
+
+- ### Nuestra nueva paleta de 256 colores
+
+![256 palette](https://i.imgur.com/DE36vyM.png)
+
+- ### La anterior paleta de 64 colores
+
+![64 palette](https://i.imgur.com/Cf64zwf.png)
 
 ## Observaciones
 
