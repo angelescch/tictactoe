@@ -1,4 +1,5 @@
 OBJS = \
+	256_palette.o\
 	bio.o\
 	console.o\
 	exec.o\
@@ -256,7 +257,7 @@ EXTRA=\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
-	moo.c tictactoe.c
+	moo.c tictactoe.c 256_palette.c
 
 dist:
 	rm -rf dist

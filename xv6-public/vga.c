@@ -2,6 +2,7 @@
 #include "defs.h"
 #include "memlayout.h"
 #include "x86.h"
+#include "256_palette.h"
 
 #define VGA_AC_INDEX        0x3C0
 #define VGA_AC_WRITE        0x3C0
@@ -23,8 +24,7 @@
 #define VGA_NUM_CRTC_REGS   25
 #define VGA_NUM_GC_REGS     9
 #define VGA_NUM_AC_REGS     21
-#define VGA_NUM_REGS    (1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + \
-                        VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
+#define VGA_NUM_REGS    (1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
 
 static uchar g_320x200x256[] =
 {
@@ -359,7 +359,7 @@ write_regs(unsigned char *regs)
     outb(VGA_AC_WRITE, *regs);
     regs++;
   }
-/* lock 16-color palette and unblank display */
+/* lock palette and unblank display */
   (void)inb(VGA_INSTAT_READ);
   outb(VGA_AC_INDEX, 0x20);
 }
@@ -407,6 +407,7 @@ modeswitch(int mode)
     break;
   case 1:
     write_regs(g_320x200x256);
+    setdefaultVGApalette();
     break;
   }
 }
