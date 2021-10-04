@@ -1,11 +1,15 @@
+//BORRAR:
+//nota: printimage solo anda para algunos colores por eso no se muestran los dibujitos
+//no pude ver cual era el error, solo alcancé a poner los colores originales
+//mañana me fijo bien porque ya es muy tarde y no pienso bien sin dormir xd
 
 //colors
-#define  BGND   0x0F   //lilac
-#define  ORNG   0x2E   //orange
-#define  WHTE   0x3F   //white
+#define  BGND   0x38   //lilac
+#define  ORNG   0x42   //orange
+#define  WHTE   0x0F   //white
 #define  GRAY   0x07   //gray
-#define  LGRN   0x30   //light green
-#define  DGRN   0x22   //dark green
+#define  LGRN   0xbe   //light green
+#define  DGRN   0x76   //dark green
 
 // bitmaps
 char hare[]={
@@ -26,7 +30,7 @@ char hare[]={
   0x00, GRAY, GRAY, 0x00, WHTE, WHTE, 0x00, WHTE, WHTE, 0x00, GRAY, GRAY, 0x00,
   0x00, GRAY, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, GRAY, 0x00,
   ORNG, 0x00, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, WHTE, 0x00, ORNG,
-  ORNG, ORNG, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, ORNG, ORNG,
+  ORNG, ORNG, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, ORNG, ORNG
 };
 char turtle[]={
   ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, DGRN, DGRN, DGRN, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG, ORNG,
@@ -40,7 +44,7 @@ char turtle[]={
   LGRN, LGRN, LGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, DGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG,
   ORNG, ORNG, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
   ORNG, ORNG, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
-  ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG,
+  ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG, LGRN, LGRN, LGRN, ORNG, ORNG, ORNG, ORNG, ORNG
 };
 char draw1[]={
   BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,0x00,BGND,0x00,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,BGND,
