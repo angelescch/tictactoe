@@ -28,7 +28,7 @@ void            footer(void);
 void            modeswitch(int);
 void            plotpixel(int, int, int);
 void            plotrectangle(int, int, int, int, int);
-void            printimage(int, int, int, int, char*,int);
+void            printimage(int, int, int, int, int*,int);
 void            printchar(uchar, int, int, int, int);
 
 // exec.c
@@ -160,6 +160,7 @@ char*           strncpy(char*, const char*, int);
 // syscall.c
 int             argint(int, int*);
 int             argptr(int, char**, int);
+int             argintptr(int, int**, int);
 int             argstr(int, char**);
 int             fetchint(uint, int*);
 int             fetchstr(uint, char**);

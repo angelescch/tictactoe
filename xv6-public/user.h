@@ -27,7 +27,7 @@ int getc(void);
 int modeswitch(int);
 int plotpixel(int, int, int);
 int plotrectangle(int, int, int, int, int);
-int printimage(int, int, int, int, char*, int);
+int printimage(int, int, int, int, int*, int);
 int printchar(uchar, int, int, int, int);
 
 // ulib.c

@@ -139,16 +139,28 @@ int
 sys_printimage(void)
 {
   int width, length, x, y, scale;
-  char *bitmap;
+  int *bitmap;
   if (argint(0, &width) == -1 || argint(1, &length) == -1 || argint(2, &x) == -1 ||
-      argint(3, &y) || argptr(4, &bitmap, width*length) || argint(5, &scale) == -1){
+      argint(3, &y) || argintptr(4, &bitmap, width*length) || argint(5, &scale) == -1){
     return -1;
    }
    if(x<0 || y<0 || width<0 || length<0 || x+ scale*(width)>320 || y + scale*(length)>200){
      return -1;
    }
    for(int i=0; i<width*length; i++ ){
-     if(bitmap[i]<0 || bitmap[i]>64){
+     /* Nota: para tener como argumento a un arreglo se usa la función argptr()
+     * dicho arreglo es de char entonces bitmap[i] es de 1 byte = sizeof(char).
+     * (con un char se pueden representar números de -128 a 128)
+     * Si se usa el bit más significativo, se va a interpretar como un negativo,
+     * y cuando se haga el checkeo "if(bitmap[i]<0 || bitmap[i]>255)"
+     * la condición va a ser true aunque el color esté bien representado. 
+     * Una solución es hacer una función similar a argptr() pero que utilice otro tipo (int)
+     * Porque corroborar que cada elemento esté entre -128 y 128 es trivial
+     * De todos modos, si se intenta usar un número mayor a 255 (más de 8 bits) se produce un error
+     * por overflow en la conversión de int a char y ni siquiera compila, el problema es que se podrían
+     * usar números negativos.
+     */
+     if(bitmap[i]<0|| bitmap[i]>255){
        return -1;
      }
    }

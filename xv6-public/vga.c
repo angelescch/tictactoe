@@ -430,7 +430,7 @@ plotrectangle(int x1, int y1, int x2, int y2, int color)
 }
 
 void
-printimage(int width, int length, int x, int y, char *bitmap, int scale)
+printimage(int width, int length, int x, int y, int *bitmap, int scale)
 {
   for(int i = 0; i < length; i++){
     for(int j = 0; j < width; j++){
