@@ -2,8 +2,7 @@
 #include "defs.h"
 #include "memlayout.h"
 #include "x86.h"
-#include "256_palette.h"
-#include "g_8x16_font.h"
+#include "vga.h"
 
 #define VGA_AC_INDEX        0x3C0
 #define VGA_AC_WRITE        0x3C0
@@ -25,7 +24,8 @@
 #define VGA_NUM_CRTC_REGS   25
 #define VGA_NUM_GC_REGS     9
 #define VGA_NUM_AC_REGS     21
-#define VGA_NUM_REGS    (1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
+#define VGA_NUM_REGS    (1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + \
+                        VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
 
 static uchar g_320x200x256[] =
 {
@@ -108,9 +108,37 @@ write_regs(unsigned char *regs)
 void
 load_font(unsigned char font[4096])
 {
+  // set up registers
+  outb(VGA_GC_INDEX,  0x05);
+  outb(VGA_GC_DATA,   0x00);
+  outb(VGA_SEQ_INDEX, 0x02);
+  outb(VGA_SEQ_DATA,  0x04);
+  // set memory to font
   for(uint i = 0; i < 256; i++){
     for(uint j = 0; j < 16; j++)
       *(char *)P2V(0xB8000 + 32*i+j) = font[16*i+j];
+  }
+  // reset registers
+    outb(VGA_GC_INDEX,  0x05);
+    outb(VGA_GC_DATA,   0x10);
+    outb(VGA_SEQ_INDEX, 0x02);
+    outb(VGA_SEQ_DATA,  0x03);
+}
+
+void vga_set_color(int index, int r, int g, int b) {
+  outb(0x3C8, index);
+  outb(0x3C9, r);
+  outb(0x3C9, g);
+  outb(0x3C9, b);
+}
+
+void set_vga_palette() {
+  for(int index=0;index<256;index++) {
+    int value = vga256_24bit[index];
+    vga_set_color(index,
+                (value>>18)&0x3f,
+                (value>>10)&0x3f,
+                (value>>2)&0x3f);
   }
 }
 
@@ -134,21 +162,14 @@ modeswitch(int mode)
   {
   case 0:
     write_regs(g_80x25_text);
-    outb(VGA_GC_INDEX,  0x05);
-    outb(VGA_GC_DATA,   0x00);
-    outb(VGA_SEQ_INDEX, 0x02);
-    outb(VGA_SEQ_DATA,  0x04);
     load_font(g_8x16_font);
-    outb(VGA_GC_INDEX,  0x05);
-    outb(VGA_GC_DATA,   0x10);
-    outb(VGA_SEQ_INDEX, 0x02);
-    outb(VGA_SEQ_DATA,  0x03);
+    // set screen to black
     memset((int *)P2V(0xB8000), 0, 0x08000);
     footer();
     break;
   case 1:
     write_regs(g_320x200x256);
-    setdefaultVGApalette();
+    set_vga_palette();
     break;
   }
 }
