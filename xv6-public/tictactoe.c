@@ -9,7 +9,7 @@
 #define true 1
 
 // Rules
-char *intro = 
+char *intro =
 " \
 --------------------- TIC TAC TOE ---------------------\n\
 This is a 2-players game and it is played on a 3x3 grid.\n\
@@ -25,7 +25,7 @@ Thus, the only valid plays are the numbers from 1 to 9.\n\
 \n\
 There are two characters; the turtle and the hare,\n\
 the first turn is decided randomly, and it will be shown on\n\
-the left, at the bottom of the tittle. Each player \n\
+the left, at the bottom of the title. Each player \n\
 gets to play only one mark per-turn. And it is not\n\
 valid to chose an occupied cell.\n\
 (If you want to quit the game before it finishes you can press 'q')\n\
@@ -59,7 +59,7 @@ init_background(void)
   // Title: TIC TAC TOE
   printchar('T', 10, 12, 0x0, 3);
   printchar('i', 38, 12, 0x0, 3);
-  printchar('c', 66, 12, 0x0, 3);
+  printchar('C', 66, 12, 0x0, 3);
 
   printchar('t', 10, 52, 0x0, 3);
   printchar('A', 38, 52, 0x0, 3);
@@ -112,10 +112,10 @@ occupied_cell(int row, int column)
   plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 0x04);
   plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 0x04);
   sleep(100);
-  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, 0x3F);
-  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, 0x3F);
-  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, 0x3F);
-  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, 0x3F);
+  plotrectangle(116+62*column, 130-62*row, 180+62*column, 132-62*row, WHTE);
+  plotrectangle(116+62*column, 132-62*row, 118+62*column, 192-62*row, WHTE);
+  plotrectangle(178+62*column, 132-62*row, 180+62*column, 192-62*row, WHTE);
+  plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, WHTE);
 }
 
 /* Indica que la celda ingresada no se corresponde
