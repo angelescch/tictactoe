@@ -24,9 +24,9 @@ int vga256_24bit[256] =
 
 void vgaSetPalette(int index, int r, int g, int b) {
   outb(0x3C8, index);
-  outb(0x3C9, r); 
-  outb(0x3C9, g); 
-  outb(0x3C9, b); 
+  outb(0x3C9, r);
+  outb(0x3C9, g);
+  outb(0x3C9, b);
 }
 
 void setdefaultVGApalette() {

@@ -101,9 +101,8 @@ int
 sys_modeswitch(void)
 {
   int n;
-  if (argint(0, &n) == -1 || (n != 1 && n != 0)){
+  if (argint(0, &n) < 0 || (n != 1 && n != 0))
     return -1;
-  }
   modeswitch(n);
   return 0;
 }
@@ -112,7 +111,7 @@ int
 sys_plotpixel(void)
 {
   int x, y, color;
-  if (argint(0, &x) == -1 || argint(1, &y) == -1 || argint(2, &color) == -1)
+  if (argint(0, &x) < 0 || argint(1, &y) < 0 || argint(2, &color) < 0)
     return -1;
   if (x < 0 || x > 319 || y < 0 || y > 199 || color < 0 || color > 255)
     return -1;
@@ -124,12 +123,14 @@ int
 sys_plotrectangle(void)
 {
   int x1, y1, x2, y2, color;
-  if (argint(0, &x1) == -1 || argint(1, &y1) == -1 ||
-      argint(2, &x2) == -1 || argint(3, &y2) == -1 || argint(4, &color) == -1)
+  if (argint(0, &x1) < 0 || argint(1, &y1) < 0 ||
+      argint(2, &x2) < 0 || argint(3, &y2) < 0 || argint(4, &color) < 0
+    )
     return -1;
   if (x1 < 0 || x1 > 320 || y1 < 0 || y1 > 200 ||
       x2 < 0 || x2 > 320 || y2 < 0 || y2 > 200 ||
-      color < 0 || color > 255 || x1 >= x2 || y1 >= y2)
+      color < 0 || color > 255 || x1 >= x2 || y1 >= y2
+     )
     return -1;
   plotrectangle(x1, y1, x2, y2, color);
   return 0;
@@ -140,29 +141,33 @@ sys_printimage(void)
 {
   int width, length, x, y, scale;
   int *bitmap;
-  if (argint(0, &width) == -1 || argint(1, &length) == -1 || argint(2, &x) == -1 ||
-      argint(3, &y) || argintptr(4, &bitmap, width*length) || argint(5, &scale) == -1){
+  if (argint(0, &width) < 0 || argint(1, &length) < 0 ||
+      argint(2, &x) < 0 || argint(3, &y) ||
+      argintptr(4, &bitmap, width*length) || argint(5, &scale) < 0
+     )
     return -1;
-   }
-   if(x<0 || y<0 || width<0 || length<0 || x+ scale*(width)>320 || y + scale*(length)>200){
+
+   if (x < 0 || y < 0 || width < 0 || length < 0 ||
+       x+ scale*(width) > 320 || y + scale*(length) > 200
+     )
      return -1;
-   }
-   for(int i=0; i<width*length; i++ ){
-     /* Nota: para tener como argumento a un arreglo se usa la función argptr()
-     * dicho arreglo es de char entonces bitmap[i] es de 1 byte = sizeof(char).
-     * (con un char se pueden representar números de -128 a 128)
-     * Si se usa el bit más significativo, se va a interpretar como un negativo,
-     * y cuando se haga el checkeo "if(bitmap[i]<0 || bitmap[i]>255)"
-     * la condición va a ser true aunque el color esté bien representado. 
-     * Una solución es hacer una función similar a argptr() pero que utilice otro tipo (int)
-     * Porque corroborar que cada elemento esté entre -128 y 128 es trivial
-     * De todos modos, si se intenta usar un número mayor a 255 (más de 8 bits) se produce un error
-     * por overflow en la conversión de int a char y ni siquiera compila, el problema es que se podrían
-     * usar números negativos.
-     */
-     if(bitmap[i]<0|| bitmap[i]>255){
+
+   for(int i = 0; i < width*length; i++){
+    // BORRAR Nota: para tener como argumento a un arreglo se usa la función argptr()
+    // dicho arreglo es de char entonces bitmap[i] es de 1 byte = sizeof(char).
+    // (con un char se pueden representar números de -128 a 128)
+    // Si se usa el bit más significativo, se va a interpretar como un negativo,
+    // y cuando se haga el checkeo "if(bitmap[i]<0 || bitmap[i]>255)"
+    // la condición va a ser true aunque el color esté bien representado.
+    // Una solución es hacer una función similar a argptr() pero que utilice
+    // otro tipo (int)
+    // Porque corroborar que cada elemento esté entre -128 y 128 es trivial
+    // De todos modos, si se intenta usar un número mayor a 255 (más de 8 bits)
+    // se produce un error por overflow en la conversión de int a char y ni
+    // siquiera compila, el problema es que se podrían
+    // usar números negativos.
+     if (bitmap[i] < 0|| bitmap[i] > 255)
        return -1;
-     }
    }
   printimage(width, length, x, y, bitmap, scale);
   return 0;
@@ -173,11 +178,13 @@ sys_printchar(void)
 {
   int c;
   int x, y, color, scale;
-  if(argint(0, &c) == -1 || argint(1, &x) == -1 || argint(2, &y) == -1 ||
-     argint(3, &color) == -1 || argint(4, &scale) == -1)
+  if (argint(0, &c) < 0 || argint(1, &x) < 0 || argint(2, &y) < 0 ||
+      argint(3, &color) < 0 || argint(4, &scale) < 0
+     )
     return -1;
-  if(x<0 || y<0 || color<0 || color>255 || scale < 0 ||
-     x + scale*8>320 || y + scale*16>200)
+  if (x < 0 || y < 0 || color < 0 || color > 255 || scale < 0 ||
+      x + scale*8 > 320 || y + scale*16 > 200
+     )
     return -1;
   printchar((uchar)c, x, y, color, scale);
   return 0;

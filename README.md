@@ -54,10 +54,15 @@ Seguimos la estructura de las syscalls ya implementadas en xv6 y, como propuso l
 
 - ### tictactoe:
     El programa comienza en modo texto, mostrando las instrucciones del juego. Una vez que recibe el caracter 'y', pasa a modo gráfico y muestra el tablero. Durante el transcurso del juego se espera a que se presione algun número del 1 al 9 para colocar las fichas en la posición correspondiente. Presionando 'q' se puede terminar la partida y volver a modo texto.
-    
+
     Durante el juego, se deben elegir las celdas libres, pero en caso de que no se respete eso, se pinta la celda en rojo y se espera por un nuevo input (con la esperanza de que el usuario entienda que eso es trampa). Del mismo modo, si se ingresa un caracter que no es 'q' o un entero del 1 al 9 (inclusive), se pinta todo el tablero de rojo.
-    
+
     Por otro lado, las fichas, así como una pequeña ilustración, son "imágenes" creadas a partir de arreglos de píxeles.
+
+![Foto del programa en ejecución](https://imgur.com/NLDjssS.png)
+
+![Foto del programa en ejecución](https://imgur.com/OevLXz0.png)
+
 - ### moo
     ¿Have you mooed today?
 

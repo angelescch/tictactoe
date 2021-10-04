@@ -74,10 +74,9 @@ init_background(void)
   printimage(18, 12, 5, 171, draw2, 2);
 }
 
-/* update_cell dibuja la ficha correspondiente al
- * turno que se le pasa.
- * X = liebre; O = tortuga
-*/
+// update_cell draws the mark corresponding
+// to the turn that is passed.
+// X = hare; O = turtle
 void
 update_cell(int row, int column, char turn)
 {
@@ -87,9 +86,7 @@ update_cell(int row, int column, char turn)
     printimage(18, 12, 130+62*column, 150-62*row, turtle, 2);
 }
 
-/* Muestra (en un lugar a determinar, puede ser abajo
- * de "TICTACTOE") el personaje del turno correspondiente
-*/
+// Shows below "TICTACTOE" the character of the corresponding turn
 void
 show_turn(char turn)
 {
@@ -100,10 +97,9 @@ show_turn(char turn)
     printimage(18, 12, 40, 141, turtle, 1);
 }
 
-/* Hace una pequeña animación, en la celda que se le pasa
- * indicando que no se puede poner una ficha ahí
- * (le dibuja un marco rojo por un instante)
-*/
+//  Makes a small animation, in the cell that is passed
+//  indicating that is noy valid to play there
+//  (it draws a red frame for a moment)
 void
 occupied_cell(int row, int column)
 {
@@ -118,9 +114,8 @@ occupied_cell(int row, int column)
   plotrectangle(116+62*column, 192-62*row, 180+62*column, 194-62*row, WHTE);
 }
 
-/* Indica que la celda ingresada no se corresponde
- * con ninguna del tablero.
-*/
+// Indicates that the entered cell does not correspond
+// with none of the board.
 void
 invalid_cell(char board[BOARD_SIZE][BOARD_SIZE])
 {
@@ -137,9 +132,8 @@ invalid_cell(char board[BOARD_SIZE][BOARD_SIZE])
       update_cell(i, j, board[i][j]);
 }
 
-/* Muestra el ganador o en caso de empate
- * algo que lo indique
-*/
+// Show the winner or in case of a tie
+// both players
 void
 show_result(char winner)
 {
@@ -148,8 +142,8 @@ show_result(char winner)
   {
   case 'X':
     printimage(13, 18, 95, 10, hare, 10);
-    char *msg1 = " Hare wins! "; 
-    for(int i=0; i<12; i++){
+    char *msg1 = " Hare wins! ";
+    for(int i = 0; i < 12; i++){
       printchar(msg1[i], 0 + i*8, 100, 0x0, 1);
     }
     break;
@@ -164,7 +158,7 @@ show_result(char winner)
     printimage(13, 18, 188, 20, hare, 8);
     printimage(18, 12, 28, 60, turtle, 8);
     char *msg3 = "It's a tie!!";
-    for(int i=0; i<12; i++){
+    for(int i = 0; i < 12; i++){
       printchar(msg3[i], 100 + i*8, 175, 0x0, 1);
     }
     break;
@@ -172,10 +166,8 @@ show_result(char winner)
   sleep(500);
 }
 
-/* Dada la situación de la partida devuelve el
- * ganador ('X' ó 'O') o en caso de que no haya
- * terminado el juego o fue empate '-'
-*/
+// Given the situation of the game, returns the winner ('X' or 'O')
+// or in case the game has not finished or it was a tie '-'
 char
 get_winner(char board[BOARD_SIZE][BOARD_SIZE], int row, int column)
 {
@@ -224,14 +216,14 @@ main(void)
   };
   char turn = uptime() % 2 ? 'X' : 'O';   // pseudo-random first turn
   char winner = '-';
-  int cell, free_cells = 9;
+  int cell, free_cells = BOARD_SIZE*BOARD_SIZE;
   modeswitch(1);
   init_background();
 
   while (winner == '-' && free_cells != 0){
     show_turn(turn);
     cell = getc();
-    if (cell=='q'){
+    if (cell == 'q'){
       modeswitch(0);
       exit();
     }
