@@ -11,25 +11,26 @@
 // Rules
 char *intro =
 " \
---------------------- TIC TAC TOE ---------------------\n\
-This is a 2-players game and it is played on a 3x3 grid.\n\
-The first to get 3 marks in a row is the winner.\n\
-The cells are mapped to the keyboard in the following way\n\
+----------------------\xDD\xDC TIC TAC TOE \xDF\xDE----------------------\n\
+After their famous race, the turtle and the hare retired and\n\
+devoted to different sports. One of them is this one, tictactoe.\n\
+This game is played on a 3x3 grid, which is mapped to the\n\
+keyboard in the following way:\n\
                         |7|8|9|\n\
                         |4|5|6|\n\
                         |1|2|3|\n\
-For example: if you hit the key '5' you will place your \n\
-mark in the middle of the board. As well, if you hit \n\
-'7' you will play on the top-left cell; and so on...\n\
+For example: if you hit the key '5' you will place your mark in\n\
+the middle of the board. As well, if you hit '7' you will play\n\
+on the top-left cell; and so on...\n\
 Thus, the only valid plays are the numbers from 1 to 9.\n\
 \n\
-There are two characters; the turtle and the hare,\n\
-the first turn is decided randomly, and it will be shown on\n\
-the left, at the bottom of the title. Each player \n\
-gets to play only one mark per-turn. And it is not\n\
-valid to chose an occupied cell.\n\
-(If you want to quit the game before it finishes you can press 'q')\n\
+The goal of the game is to get 3 marks in a row.\n\
+The first turn is decided randomly, and it is shown on the left,\n\
+below the title. Each player gets to play only one mark per-turn,\n\
+and it is not valid to choose an occupied cell.\n\
+If you want to help this critters, go get a friend to begin the fun\n\
 \n\
+(If you want to quit the game before it finishes you can press 'q')\n\
 Are you ready to be amazed by this game? [y/n]\n\
 ";
 
@@ -203,6 +204,7 @@ int
 main(void)
 {
   // Init in text mode
+  modeswitch(0);
   printf(1, intro);
   char *ans = "\0";
   ans = gets(ans, 2);

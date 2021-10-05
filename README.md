@@ -59,7 +59,7 @@ Seguimos la estructura de las syscalls ya implementadas en xv6 y, como propuso l
 
     Por otro lado, las fichas, así como una pequeña ilustración, son "imágenes" creadas a partir de arreglos de píxeles.
 
-![Foto del programa en ejecución](https://imgur.com/NLDjssS.png)
+![Foto del programa en ejecución](https://i.imgur.com/x33mcGj.png)
 
 ![Foto del programa en ejecución](https://i.imgur.com/5Yxchh3.png)
 
@@ -77,9 +77,9 @@ En la primera semana principalmente investigamos sobre VGA, y no trabajamos much
 
 Luego agregamos las syscalls plotpixel y plotrectangle, y decidimos hacer como programa de usuario una versión del tateti, basada en la historia para niños "La liebre y la tortuga".
 
-Las siguientes semanas nos dedicamos puntualmente al desarrollo del programa de usuario tictactoe y pulimos detalles tanto visuales como funcionales. Además de agregar información útil para que cualquier usuario que no haya jugado nunca al tictactoe pueda entender su funcionamiento.
+Las siguientes semanas nos centramos en el programa tictactoe.c, basado en un proyecto de la materia Algoritmos y Estructuras de Datos II. Además de añadir todo el aspecto gráfico, optimizamos algunas funciones y añadimos la introducción, con información útil para que cualquier usuario que no haya jugado nunca al tictactoe pueda entender su funcionamiento.
 
-Por último como el modo gráfico es de 256, programamos la paleta para poder usar todos los colores.
+Una vez finalizado el desarrollo de tictactoe.c, pudimos enfocarnos en los puntos extra propuestos: incluimos, entonces, el archivo vga.h, que contiene los arreglo utilizados para restaurar la fuente del modo texto y para habilitar la paleta de 256 colores en el modo gráfico. Entre los cambios finales está la modificación de la fuente, para que permita mostrar unas pequeñas imágenes de los animales.
 
 - ### Nuestra nueva paleta de 256 colores
 
