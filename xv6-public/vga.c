@@ -177,7 +177,7 @@ modeswitch(int mode)
 void
 plotpixel(int x, int y, int color)
 {
-  int ofset = 0xA0000 + 320*y + x; 
+  int ofset = 0xA0000 + 320*y + x;
   *(char *)P2V(ofset) = color;
 }
 

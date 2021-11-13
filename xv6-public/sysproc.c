@@ -153,6 +153,11 @@ sys_printimage(void)
      return -1;
 
    for(int i = 0; i < width*length; i++){
+    // (milagro) Totalmente de acuerdo, a esta nota habia que borrarla.
+    // Si no quieren olvidarse de cosas, pueden poner comentarios en el codigo
+    // que digan TODO, FIXME o que comiencen con su nombre, y antes de hacer
+    // un commit usan grep para encontrarlos facil
+
     // BORRAR Nota: para tener como argumento a un arreglo se usa la función argptr()
     // dicho arreglo es de char entonces bitmap[i] es de 1 byte = sizeof(char).
     // (con un char se pueden representar números de -128 a 128)
@@ -180,7 +185,7 @@ sys_printchar(void)
   int x, y, color, scale;
   if (argint(0, &c) < 0 || argint(1, &x) < 0 || argint(2, &y) < 0 ||
       argint(3, &color) < 0 || argint(4, &scale) < 0
-     )
+     )  // (milagro) Este parentesis deberia ir en la linea de arriba
     return -1;
   if (x < 0 || y < 0 || color < 0 || color > 255 || scale < 0 ||
       x + scale*8 > 320 || y + scale*16 > 200
